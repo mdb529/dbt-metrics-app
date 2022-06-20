@@ -1,14 +1,23 @@
 dbt_metrics_app:
+  target: dev
   outputs:
     dev:
+      type: bigquery
+      method: service-account-json
+      project: dbt-metrics-dw
       dataset: analytics
       job_execution_timeout_seconds: 300
-      job_retries: 1
-      keyfile: "{{ env_var('SA_KEY_PATH') }}"
-      location: US
-      method: service-account
-      priority: interactive
-      project: dbt-metrics-dw
       threads: 4
-      type: bigquery
-  target: dev
+
+      # These fields come from the service account json keyfile
+      keyfile_json:
+        type: "{{ env_var(gcp_service_account.type) }}".
+        project_id: "{{ env_var(gcp_service_account.project_id) }}".
+        private_key_id: "{{ env_var(gcp_service_account.private_key_id) }}".
+        private_key: "{{ env_var(gcp_service_account.private_key) }}".
+        client_email: "{{ env_var(gcp_service_account.client_email) }}".
+        client_id: "{{ env_var(gcp_service_account.client_id) }}".
+        auth_uri: "{{ env_var(gcp_service_account.auth_uri) }}".
+        token_uri: "{{ env_var(gcp_service_account.token_uri) }}".
+        auth_provider_x509_cert_url: "{{ env_var(gcp_service_account.auth_provider_x509_cert_url) }}".
+        client_x509_cert_url: "{{ env_var(gcp_service_account.client_x509_cert_url) }}".
