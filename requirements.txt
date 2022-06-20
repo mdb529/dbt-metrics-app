@@ -1,0 +1,9 @@
+dbt==1.0.0
+dbt_core==1.1.1
+matplotlib==3.5.2
+numpy==1.22.4
+pandas==1.4.2
+plotly==5.8.2
+protobuf==4.21.1
+pytest==7.1.2
+streamlit==1.10.0
