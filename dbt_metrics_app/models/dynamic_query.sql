@@ -4,7 +4,7 @@
             metrics.metric(
                 metric_name='net_charges',
                 grain='day',
-                dimensions=[],
+                dimensions=['practice'],
                 secondary_calculations=[]
             )
         }}
