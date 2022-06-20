@@ -1,0 +1,8 @@
+
+*.toml
+
+target/
+dbt_packages/
+logs/
+
+service_account.json
