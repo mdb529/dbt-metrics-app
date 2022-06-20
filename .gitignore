@@ -5,6 +5,4 @@ target/
 dbt_packages/
 logs/
 
-profiles.yml
-packages.yml
 service_account.json
