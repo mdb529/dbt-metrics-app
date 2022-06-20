@@ -1,2 +1,9 @@
-secrets.toml
+
+*.toml
+
+dbt_metrics_app/target/
+dbt_metrics_app/dbt_packages/
+dbt_metrics_app/logs/
+
 profiles.yml
+packages.yml
