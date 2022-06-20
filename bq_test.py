@@ -12,6 +12,8 @@ pd.set_option('display.float_format',lambda x: '%.f' % x)
 # df = client.query(QUERY).to_dataframe()
 # df.to_pickle('sample_data.pkl')
 
+##### TEST UPDATE
+
 df = pd.read_pickle('sample_data.pkl')
 
 grid_df = df[['period','practice','net_charges']].sort_values(by='period',ascending=False)
