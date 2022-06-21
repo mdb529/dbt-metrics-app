@@ -31,7 +31,7 @@ if tabs =='Overview':
     st.title('Welcome to my data app!')
     st.text("(Data App Overview to come...)")
     st.text("<-- See dbt Metrics in action!")
-    st.caption("If on mobile, first click the '>' icon at the top left of your screen to expand the side menu, otherwise click the 'Example' tab to see a demo")
+    st.caption("If on mobile, first click the '>' icon at the top left of your screen to expand the side menu and then click the 'Example' tab, otherwise click the 'Example' tab to see a demo")
 
 elif tabs == 'dbt Metrics':
     st.title("dbt Metrics")
