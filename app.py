@@ -155,12 +155,13 @@ elif tabs == 'Example':
         behindthescenes_container = st.empty()
         behindthescenes_container.text('Behind the scenes...')
 
-        querycol1.subheader("dbt Compiled Query")
-        querycol1.caption("This is the query dbt is dynamically compiling based off your inputs")
-        querycol1.text(compiled)
+        querycol1.subheader("dbt Metric Config")
+        querycol1.caption("This how the metric is configured in dbt.")
+        querycol1.text(query)
 
-        querycol2.subheader("dbt Metric Config")
-        querycol2.caption("This how the metric is configured in dbt.")
-        querycol2.text(query)
+        querycol2.subheader("dbt Compiled Query")
+        querycol2.caption("This is the query dbt is dynamically compiling based off your inputs")
+        querycol2.text(compiled)
+
 
 
