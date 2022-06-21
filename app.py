@@ -30,7 +30,8 @@ with st.sidebar:
 if tabs =='Overview':
     st.title('Welcome to my data app!')
     st.text("(Data App Overview to come...)")
-    st.text("<-- Click on the 'Example' tab to see dbt Metrics in action!")
+    st.text("<-- See dbt Metrics in action!")
+    st.caption("If on mobile, first click the '>' icon to expand the side menu, otherwise click the 'Example' tab to see a demo")
 
 elif tabs == 'dbt Metrics':
     st.title("dbt Metrics")
@@ -44,7 +45,7 @@ elif tabs == 'dbt Metrics':
 elif tabs == 'Example':
     st.title("dbt Metrics Example")
 
-    expander = st.expander(label='Click for Metric Details')
+    expander = st.expander(label='Click to select filters')
     col1, col2, col3 = expander.columns(3)
 
 
