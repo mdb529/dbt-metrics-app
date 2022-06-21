@@ -146,10 +146,21 @@ elif tabs == 'Example':
 
         st.plotly_chart(fig)
 
+        querycol1,querycol2 = st.columns(2)
+        compiled = metrics._get_compiled_query(query)
+
         st.subheader("Data Table")
         st.dataframe(df)
 
-        st.subheader("dbt Query")
-        st.text(query)
+        behindthescenes_container = st.empty()
+        behindthescenes_container.text('Behind the scenes...')
+
+        querycol1.subheader("dbt Compiled Query")
+        querycol1.caption("This is the query dbt is dynamically compiling based off your inputs")
+        querycol1.text(compiled)
+
+        querycol2.subheader("dbt Metric Config")
+        querycol2.caption("This how the metric is configured in dbt.")
+        querycol2.text(query)
 
 
