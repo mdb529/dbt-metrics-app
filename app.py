@@ -29,10 +29,13 @@ with st.sidebar:
 
 if tabs =='Overview':
     st.title('Welcome to my data app!')
-    st.text("Data App Overview")
+    st.text("(Data App Overview to come...)")
+    st.text("<-- Click on the 'Example' tab to see dbt Metrics in action!")
 
 elif tabs == 'dbt Metrics':
     st.title("dbt Metrics")
+    st.text("(dbt Metrics explanation to come...)")
+
     col1, col2, col3 = st.columns(3)
     col1.metric("Temperature", "70 °F", "1.2 °F")
     col2.metric("Wind", "9 mph", "-8%")
