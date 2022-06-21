@@ -62,10 +62,21 @@ elif tabs == 'Example':
     )
 
     calculation_options = [
-        'metrics.period_over_period(comparison_strategy="ratio", interval=1)',
-        'metrics.period_over_period(comparison_strategy="difference", interval=1)',
-        'metrics.rolling(aggregate="max", interval=1)',
-        'metrics.rolling(aggregate="min", interval=1)',
+        'metrics.period_to_date(aggregate="average", period="year", alias="charges_this_year_average")',
+
+        'metrics.rolling(aggregate="average", interval=3, alias="charges_avg_past_3_weeks")',
+        'metrics.rolling(aggregate="average", interval=6, alias="charges_avg_past_6_weeks")',
+        'metrics.rolling(aggregate="average", interval=12, alias="charges_avg_past_12_weeks")',
+        'metrics.rolling(aggregate="average", interval=52, alias="charges_avg_past_52_weeks")',
+        
+        'metrics.rolling(aggregate="max", interval=3, alias="charges_max_past_3_weeks")',
+        'metrics.rolling(aggregate="max", interval=6, alias="charges_max_past_6_weeks")',
+        'metrics.rolling(aggregate="max", interval=12, alias="charges_max_past_12_weeks")',
+
+        'metrics.rolling(aggregate="min", interval=3, alias="charges_min_past_3_weeks")',
+        'metrics.rolling(aggregate="min", interval=6, alias="charges_min_past_6_weeks")',
+        'metrics.rolling(aggregate="min", interval=12, alias="charges_min_past_12_weeks")',
+        'metrics.period_to_date(aggregate="sum", period="year", alias="charges_this_year_total")'
     ]
     
     secondary_calcs_list = expander.multiselect(
@@ -116,6 +127,7 @@ elif tabs == 'Example':
         st.subheader("Compiled SQL")
         st.text(compiled)
 
+    st.header('Selected Metric:')
     st.subheader(node["label"])
     st.markdown(node["description"])
     st.markdown(f'This metric is based on the model {node["model"]}. It is a {node["type"]} metric based on the column {node["sql"]}.')

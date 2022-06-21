@@ -13,3 +13,16 @@ metrics:
       - practice
       - facility
       - was_claim_worked
+
+  - name: net_payments
+    label: Net Payments
+    model: ref('fct_claim_lines')
+    description: '{{ doc("net_payments") }}'
+    type: sum
+    sql: net_payments
+    timestamp: DOS
+    time_grains: [day, week, month, year]
+    dimensions:
+      - practice
+      - facility
+      - was_claim_worked

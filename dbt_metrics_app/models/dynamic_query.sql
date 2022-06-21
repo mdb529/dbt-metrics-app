@@ -2,9 +2,9 @@
         select * from
         {{ 
             metrics.metric(
-                metric_name='net_charges',
+                metric_name='net_payments',
                 grain='day',
-                dimensions=[],
+                dimensions=['practice'],
                 secondary_calculations=[]
             )
         }}
