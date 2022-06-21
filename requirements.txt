@@ -6,4 +6,4 @@ plotly==5.8.2
 protobuf==3.13.0
 pytest==7.1.2
 streamlit==1.10.0
-st_on_hover_tabs==0.0.2
+st_on_hover_tabs
