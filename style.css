@@ -9,9 +9,9 @@ button[kind="header"] {
 
 @media(hover){
     /* header element to be removed */
-    header[data-testid="stHeader"] {
+    /* header[data-testid="stHeader"] {
         display:none;
-    }
+    } */
 
     /* The navigation menu specs and size */
     section[data-testid='stSidebar'] > div {

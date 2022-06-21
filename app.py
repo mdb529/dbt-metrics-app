@@ -41,23 +41,23 @@ elif tabs == 'dbt Metrics':
 elif tabs == 'Example':
     st.title("dbt Metrics Example")
 
+    expander = st.expander(label='Click for Metric Details')
+    col1, col2, col3 = expander.columns(3)
 
-    DEBUG = st.sidebar.checkbox("Debug Mode", value=False)
 
-    selected_metric_name = st.sidebar.selectbox(
-        label="Select a metric", options=sorted(list(metrics.get_metric_names().keys()))
+    selected_metric_name = col1.selectbox(
+     label="Select a metric", options=sorted(list(metrics.get_metric_names().keys()))
     )
-
+    
     selected_node_id = metrics.metrics_list[selected_metric_name]
     node = metrics.manifest["metrics"][selected_node_id]
     available_dimensions = node["dimensions"]
     available_time_grains = node["time_grains"]
 
-
-    selected_dimension = st.sidebar.radio(
-        "Select a dimension", options=["none"] + available_dimensions
+    selected_dimension = col2.selectbox(
+        "Select a dimension", options=["No Dimension"] + available_dimensions
     )
-    selected_time_grain = st.sidebar.selectbox(
+    selected_time_grain = col3.selectbox(
         "Select a time grain", options=available_time_grains
     )
 
@@ -67,10 +67,21 @@ elif tabs == 'Example':
         'metrics.rolling(aggregate="max", interval=1)',
         'metrics.rolling(aggregate="min", interval=1)',
     ]
-    secondary_calcs_list = st.sidebar.multiselect(
+    
+    secondary_calcs_list = expander.multiselect(
         "Select secondary calculations", options=calculation_options
     )
 
+
+    # selected_metric_name = st.sidebar.selectbox(
+    #     label="Select a metric", options=sorted(list(metrics.get_metric_names().keys()))
+    # )
+    # selected_dimension = st.sidebar.radio(
+    #     "Select a dimension", options=["No Dimension"] + available_dimensions
+    # )
+    # selected_time_grain = st.sidebar.selectbox(
+    #     "Select a time grain", options=available_time_grains
+    # )
 
 
     def get_min_max_dates(metric_name):
@@ -80,7 +91,7 @@ elif tabs == 'Example':
 
     min_date, max_date = get_min_max_dates(selected_metric_name)
 
-    if selected_dimension == "none":
+    if selected_dimension == "No Dimension":
         selected_dimensions_list = []
     else:
         selected_dimensions_list = [selected_dimension]
@@ -94,23 +105,24 @@ elif tabs == 'Example':
         max_date=max_date,
     )
 
+
     with st.spinner("Fetching query results"):
         df = metrics.get_query_results(query)
         df.columns = [c.lower() for c in df.columns]
 
+    DEBUG = expander.checkbox("Debug Mode", value=False)
+    if DEBUG:
+        compiled = metrics._get_compiled_query(query)
+        st.subheader("Compiled SQL")
+        st.text(compiled)
 
     st.subheader(node["label"])
     st.markdown(node["description"])
     st.markdown(f'This metric is based on the model {node["model"]}. It is a {node["type"]} metric based on the column {node["sql"]}.')
 
 
-    if DEBUG:
-        compiled = metrics._get_compiled_query(query)
-        st.subheader("Compiled SQL")
-        st.text(compiled)
-
     with st.spinner("Plotting results"):
-        if selected_dimension == "none" == "none":
+        if selected_dimension == "No Dimension" == "No Dimension":
             title=f"{selected_metric_name} over time"
             fig = px.line(df,x="period",y=selected_metric_name,title=title)
         else:
@@ -124,3 +136,5 @@ elif tabs == 'Example':
 
         st.subheader("dbt Query")
         st.text(query)
+
+
