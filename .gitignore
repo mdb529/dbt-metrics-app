@@ -1,8 +1,9 @@
 
 *.toml
+*.env
 
 target/
 dbt_packages/
 logs/
 
-service_account.json
+dbt-metrics-sa-keyfile.json

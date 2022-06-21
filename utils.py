@@ -41,11 +41,12 @@ class MetricsUtil:
         subprocess.run(cmd, cwd=self.dbt_dir.as_posix())
 
     def get_db_clientection(self):
-        # clientect to BQ using the Provaiet key created above
+        
         credentials = service_account.Credentials.from_service_account_info(
             st.secrets["gcp_service_account"]
         )
         client = bigquery.Client(credentials=credentials)
+
         return client
 
     def _get_compiled_query(self, raw_query):
