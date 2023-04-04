@@ -29,18 +29,19 @@ with st.sidebar:
 
 if tabs =='Overview':
     st.title('Welcome to my data app!')
-    st.text("(Data App Overview to come...)")
+    st.text("This is a demo web app built using Streamlit. It showcases the power of dbt Metrics, something that was released by dbt Labs in late 2022.")
+    st.text("On the backend, I used dbt to build a series of models in Google BigQuery.")
+    st.text("Next, I created a series of metrics on top of these models, which you can explore in the 'Example' page")
     st.text("<-- See dbt Metrics in action!")
     st.caption("If on mobile, first click the '>' icon at the top left of your screen to expand the side menu and then click the 'Example' tab, otherwise click the 'Example' tab to see a demo")
 
 elif tabs == 'dbt Metrics':
     st.title("dbt Metrics")
-    st.text("(dbt Metrics explanation to come...)")
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("Temperature", "70 °F", "1.2 °F")
-    col2.metric("Wind", "9 mph", "-8%")
-    col3.metric("Humidity", "86%", "4%")
+    col1.metric("Net Charges", "$23M", "1.2%")
+    col2.metric("Net Payments", "$6M", "-8%")
+    col3.metric("Total Accounts Receivable", "$32M", "-0.2%")
 
 elif tabs == 'Example':
     st.title("dbt Metrics Example")
@@ -87,18 +88,6 @@ elif tabs == 'Example':
         "Select secondary calculations", options=calculation_options
     )
 
-
-    # selected_metric_name = st.sidebar.selectbox(
-    #     label="Select a metric", options=sorted(list(metrics.get_metric_names().keys()))
-    # )
-    # selected_dimension = st.sidebar.radio(
-    #     "Select a dimension", options=["No Dimension"] + available_dimensions
-    # )
-    # selected_time_grain = st.sidebar.selectbox(
-    #     "Select a time grain", options=available_time_grains
-    # )
-
-
     def get_min_max_dates(metric_name):
         
         return "2022-01-01", "2022-06-01"
@@ -139,11 +128,11 @@ elif tabs == 'Example':
 
     with st.spinner("Plotting results"):
         if selected_dimension == "No Dimension" == "No Dimension":
-            title=f"{selected_metric_name} over time"
-            fig = px.line(df,x="period",y=selected_metric_name,title=title)
+            maincharttitle=f"{selected_metric_name} over time"
+            fig = px.line(df,x="period",y=selected_metric_name,title=maincharttitle)
         else:
-            title=f"{selected_metric_name} by {selected_dimension} over time"
-            fig = px.line(df,x="period",y=selected_metric_name,color=selected_dimension,title=title)
+            maincharttitle=f"{selected_metric_name} by {selected_dimension} over time"
+            fig = px.line(df,x="period",y=selected_metric_name,color=selected_dimension,title=maincharttitle)
 
         st.plotly_chart(fig)
 

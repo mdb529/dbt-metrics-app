@@ -1,0 +1,94 @@
+version: 2
+
+models:
+  - name: dim_patient
+    description: >
+      ![Stellar Health Logo](assets/stellarhealth_logo.png)
+      Table containing data about Stellar App patients. 1 row represents 1 Patient.
+    columns:
+      - name: patient_id
+        description: Primary Key. ID of Patient in Stellar App.
+      - name: name
+        description: Name of Patient in Stellar App
+      - name: date_of_birth
+        description: Date of birth of Patient in Stellar App
+      - name: weight
+        description: Weight of Patient in Stellar App
+      - name: last_visit_date
+        description: The patient's most recent Date of Service (DOS)
+      - name: _created_date
+        description: (Auto-generated field) Date the Patient was created in Stellar App
+      - name: _updated_date
+        description: (Auto-generated field) Date the Patient was updated in Stellar App
+  - name: dim_user
+    description: >
+      "![Stellar Health Logo](assets/stellarhealth_logo.png)"
+      Table containing data about Stellar App patients. 1 row represents 1 User.
+    columns:
+      - name: user_id
+        description: Primary Key. ID of User in Stellar App.
+      - name: medical_group_id
+        description: ID of Medical Group in Stellar App
+      - name: username
+        description: Username of User in Stellar App
+      - name: password
+        description: Password of User in Stellar App
+      - name: role
+        description: '{{ doc("roles") }}'
+      - name: last_login_date
+        description: User's most recent login date in Stellar App
+      - name: _created_date
+        description: (Auto-generated field) Date the User was created in Stellar App
+      - name: _updated_date
+        description: (Auto-generated field) Date the User was updated in Stellar App
+  - name: dim_medical_group
+    description: >
+      "![Stellar Health Logo](assets/stellarhealth_logo.png)"
+      Table containing data about medical groups in the Stellar App. 1 row represents 1 Medical Group.
+    columns:
+      - name: medical_group_id
+        description: Primary Key. ID of Medical Group in Stellar App
+      - name: medical_group_name
+        description: Name of Medical Group in Stellar App
+      - name: state
+        description: State of Medical Group in Stellar App
+      - name: number_of_users
+        description: Number of users belonging to Medical Group in Stellar App
+      - name: _created_date
+        description: (Auto-generated field) Date the Medical Group was created in Stellar App
+      - name: _updated_date
+        description: (Auto-generated field) Date the Medical Group was updated in Stellar App
+  - name: dim_date
+    description: >
+      "![Stellar Health Logo](assets/stellarhealth_logo.png)"
+      Table containing dates and date-related attributes including weekend, business day, and holiday flags. Can be used to standardize date formats. 1 row represents 1 date.
+    columns:
+      - name: date_key
+        description: Primary Key. Unique key for a specific date. Date key is formatted as yyyymmdd.
+      - name: date_formatted
+        description: A formatted version of the date. Standard date format is yyyy-mm-dd.
+      - name: date_day
+        description: Exact date. Example - '2023-01-01'
+      - name: date_week
+        description: The date of the beginning of the week
+      - name: date_month
+        description: The date of the beginning of the month
+      - name: date_quarter
+        description: The date of the beginning of the quarter
+      - name: date_year
+        description: The date of the beginning of the year
+      - name: is_holiday_flag
+        description: Flag indicating whether the date falls on a bank holiday.
+      - name: is_weekend_flag
+        description: Flag indicating whether the date falls on a weekend.
+  - name: fct_patient_access_log
+    description: >
+      ![Stellar Health Logo](assets/stellarhealth_logo.png)
+      Factless fact table containing a log of patient access events. 1 row represents a single instance of a user accessing a patient account.
+    columns:
+      - name: user_id
+        description: ID of User in Stellar App.
+      - name: patient_id
+        description: ID of Patient in Stellar App.
+      - name: date_accessed
+        description: The date in which the User accessed the Patient Account in Stellar App.

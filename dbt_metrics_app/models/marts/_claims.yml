@@ -7,3 +7,8 @@ sources:
 
       tables:
         - name: raw_claim_lines
+        - name: raw_medical_groups
+        - name: raw_users
+        - name: raw_patients
+        - name: raw_medical_groups_users
+        - name: raw_patient_access_log
