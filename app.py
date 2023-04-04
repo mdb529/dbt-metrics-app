@@ -29,6 +29,7 @@ with st.sidebar:
 
 if tabs =='Overview':
     st.title('Welcome to my dbt demo app!')
+    st.subheader('Created by Michael Douglas | email: mdb529@gmail.com')
     st.text("This is a demo web app built using Streamlit. It showcases the power of dbt Metrics, which was released by dbt Labs in late 2022.")
     st.text("On the backend, I used dbt to build a series of models in Google BigQuery.")
     st.text("Next, I created a series of metrics on top of these models, which you can explore in the 'Example' page")
