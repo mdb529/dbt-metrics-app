@@ -25,7 +25,7 @@ st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_ht
 
 
 with st.sidebar:
-    tabs = on_hover_tabs(tabName=['Overview', 'dbt Metrics', 'Example'],iconName=['assignment','monitor_heart','dashboard'], default_choice=0)
+    tabs = on_hover_tabs(tabName=['Overview', 'dbt Sources & Models', 'dbt Metrics'],iconName=['assignment','monitor_heart','dashboard'], default_choice=0)
 
 if tabs =='Overview':
     st.title('Welcome to my data app!')
@@ -35,22 +35,55 @@ if tabs =='Overview':
     st.text("<-- See dbt Metrics in action!")
     st.caption("If on mobile, first click the '>' icon at the top left of your screen to expand the side menu and then click the 'Example' tab, otherwise click the 'Example' tab to see a demo")
 
+elif tabs == 'dbt Sources & Models':
+    st.title("dbt Sources & Models")
+    st.text("These are the sources and models that were built using dbt. Metrics were built on top of these models.")
+
+    col1, col2, col3 = st.columns(3)
+
+    selected_node_type = col1.selectbox(
+     label="Select a Node Type", options=['Sources','Models']
+    )
+
+    selected_node_name = ''
+    query = ''
+    if selected_node_type == 'Sources':
+        selected_node_name = col2.selectbox(
+        label="Select a Source", options=sorted(list(metrics.get_source_names().values()))
+        )
+
+        query = """
+        select * from dbt-metrics-dw.raw.{} limit 50
+        """.format(selected_node_name)
+
+    elif selected_node_type == 'Models':
+        selected_node_name = col2.selectbox(
+        label="Select a Model", options=sorted(list(metrics.get_model_names().values()))
+        )
+
+        query = """
+        select * from dbt-metrics-dw.analytics.{} limit 50
+        """.format(selected_node_name)
+    
+    with st.spinner("Retrieving Data Table..."):
+        df = metrics.get_query_results(query)
+        df.columns = [c.lower() for c in df.columns]
+
+        st.subheader(f"{selected_node_type[:-1]}: {selected_node_name}")
+        st.dataframe(df)
+
 elif tabs == 'dbt Metrics':
-    st.title("dbt Metrics")
+    st.title("dbt Metrics Example")
+
+    expander = st.expander(label='Click to select filters')
+    exp_col1, exp_col2, exp_col3 = expander.columns(3)
 
     col1, col2, col3 = st.columns(3)
     col1.metric("Net Charges", "$23M", "1.2%")
     col2.metric("Net Payments", "$6M", "-8%")
     col3.metric("Total Accounts Receivable", "$32M", "-0.2%")
 
-elif tabs == 'Example':
-    st.title("dbt Metrics Example")
-
-    expander = st.expander(label='Click to select filters')
-    col1, col2, col3 = expander.columns(3)
-
-
-    selected_metric_name = col1.selectbox(
+    selected_metric_name = exp_col1.selectbox(
      label="Select a metric", options=sorted(list(metrics.get_metric_names().keys()))
     )
     
@@ -59,10 +92,10 @@ elif tabs == 'Example':
     available_dimensions = node["dimensions"]
     available_time_grains = node["time_grains"]
 
-    selected_dimension = col2.selectbox(
+    selected_dimension = exp_col2.selectbox(
         "Select a dimension", options=["No Dimension"] + available_dimensions
     )
-    selected_time_grain = col3.selectbox(
+    selected_time_grain = exp_col3.selectbox(
         "Select a time grain", options=available_time_grains
     )
 

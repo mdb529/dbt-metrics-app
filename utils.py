@@ -103,3 +103,9 @@ class MetricsUtil:
 
     def get_metric_names(self):
         return {v["name"]: k for k, v in self.manifest["metrics"].items()}
+
+    def get_source_names(self):
+        return {k:k.split('.')[-1] for k, v in self.manifest["sources"].items()}
+
+    def get_model_names(self):
+        return {k:k.split('.')[-1] for k, v in self.manifest["nodes"].items()}
