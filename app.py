@@ -28,8 +28,8 @@ with st.sidebar:
     tabs = on_hover_tabs(tabName=['Overview', 'dbt Sources & Models', 'dbt Metrics'],iconName=['assignment','monitor_heart','dashboard'], default_choice=0)
 
 if tabs =='Overview':
-    st.title('Welcome to my data app!')
-    st.text("This is a demo web app built using Streamlit. It showcases the power of dbt Metrics, something that was released by dbt Labs in late 2022.")
+    st.title('Welcome to my dbt demo app!')
+    st.text("This is a demo web app built using Streamlit. It showcases the power of dbt Metrics, which was released by dbt Labs in late 2022.")
     st.text("On the backend, I used dbt to build a series of models in Google BigQuery.")
     st.text("Next, I created a series of metrics on top of these models, which you can explore in the 'Example' page")
     st.text("<-- See dbt Metrics in action!")
